@@ -70,9 +70,15 @@ void GridMapVisual::computeVisualization(float alpha, bool showGridLines, bool f
     ROS_DEBUG("Unable to visualize grid map, map must contain at least one layer.");
     return;
   }
-  if ((!flatTerrain && !map_.exists(heightLayer)) || (!noColor && !flatColor && !map_.exists(colorLayer))) {
-    ROS_DEBUG("Unable to visualize grid map, requested layer(s) not available.");
+
+  if (!flatTerrain && !map_.exists(heightLayer))  {
+    ROS_DEBUG("Unable to visualize grid map, requested height layer not available.");
     return;
+  }
+
+  if (!noColor && !flatColor && !map_.exists(colorLayer)) {
+    ROS_DEBUG("Unable to visualize grid map, requested color layer not available.");
+    return;      
   }
 
   // Convert to simple format, makes things easier.
